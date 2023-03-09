@@ -4,8 +4,8 @@ let getHomePage = (req, res) => {
     // xu li logic o day
     let data = []
     const query = 'select * from users'
-    db.query(query, (err, result) => {
-        if(err) {console.log(err)}
+    db.query(query, (error, result) => {
+        if(error) {console.log(error)}
         result.map((row) => {
             data.push({
                 id: row.id,
@@ -15,8 +15,8 @@ let getHomePage = (req, res) => {
                 lastName: row.lastName
             })
         })
-        console.log(data)
-        return res.render('index.ejs', {dataUser : JSON.stringify(data)})
+        //console.log(data)
+        return res.render('index.ejs', {dataUser : data})
     })
 }
 
