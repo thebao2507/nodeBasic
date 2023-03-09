@@ -1,25 +1,18 @@
 import db from "../configs/connectDB"
 
-let getHomePage = (req, res) => {
-    // xu li logic o day
-    let data = []
-    const query = 'select * from users'
-    db.query(query, (error, result) => {
-        if(error) {console.log(error)}
-        result.map((row) => {
-            data.push({
-                id: row.id,
-                email: row.email,
-                address: row.address,
-                firstName: row.firstName,
-                lastName: row.lastName
-            })
-        })
-        //console.log(data)
-        return res.render('index.ejs', {dataUser : data})
-    })
+let getHomePage = async (req, res) => {
+    const [rows, fields] = await db.execute('select * from users');
+    return res.render('index.ejs', {dataUser : rows})
+}
+
+let getDetailPage = async (req, res) => {
+    let userid = req.params.userId
+    //console.log(req.params)
+    const getUserById = await db.execute(`select * from users where id = ${userid}`)
+    return res.send(JSON.stringify(getUserById[0]))
+    //return res.send('hello')
 }
 
 module.exports = {
-    getHomePage
+    getHomePage, getDetailPage
 }

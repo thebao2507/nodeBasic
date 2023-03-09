@@ -5,7 +5,7 @@ let router = express.Router()
 
 const initwebRoute = (app) => {
     router.get('/', homeController.getHomePage)
-
+    router.get('/detail/user/:userId', homeController.getDetailPage)
     router.get('/news', (req, res) => {
         res.send('con chim ca hats')
     })
