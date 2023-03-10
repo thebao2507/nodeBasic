@@ -13,6 +13,13 @@ let getDetailPage = async (req, res) => {
     //return res.send('hello')
 }
 
+let createNewUser = async (req, res) => {
+    let {firstName, lastName, email, address} = req.body
+    await db.execute(`insert into users(firstName, lastName, email, address) 
+                        values (?, ?, ?, ?)`, [firstName, lastName, email, address])
+    return res.send('success')
+}
+
 module.exports = {
-    getHomePage, getDetailPage
+    getHomePage, getDetailPage, createNewUser
 }
